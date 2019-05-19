@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-    <title>Node/Angular Todo App</title>
+    <title>Todo App</title>
 
     <!-- SCROLLS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
@@ -30,28 +30,44 @@
             <h1>Todo List <span class="label label-info"></span></h1>
         </div>
 
-        <!-- TODO LIST -->
-        <div id="todo-list" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-
-                <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                <div class="checkbox" ng-repeat="todo in todos">
-                    <label>
-                        <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
-                    </label>
-                </div>
-
-            </div>
-        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>우선순위</th>
+                    <th>마감기한</th>
+                    <th>상태</th>
+                    <th>
+                        <!-- Empty for delete button -->
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="todo in todos">
+                    <td>{{ todo.title }}</td>
+                    <td>{{ todo.text }}</td>
+                    <td>{{ todo.priority }}</td>
+                    <td>{{ todo.deadline }}</td>
+                    <td>{{ todo.done }}</td>
+                    <td>
+                        <span class="glyphicon glyphicon-remove" ng-click="deleteTodo(todo._id)"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <!-- FORM TO CREATE TODOS -->
         <div id="todo-form" class="row">
             <div class="col-sm-8 col-sm-offset-2 text-center">
                 <form>
                     <div class="form-group">
-
-                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                        <input type="text" class="form-control input-lg text-center" placeholder="I want to detect/capture dark matter" ng-model="formData.text">
+                        <label class="control-label" for="name">Todo</label>
+                        <input type="text" class="form-control input-lg text-center" placeholder="제목을 입력해주세요" ng-model="formData.title">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="description">내용</label>
+                        <textarea class="form-control input-lg text-center" placeholder="내용을 입력해주세요" ng-model="formData.text"></textarea>
                     </div>
 
                     <!-- createToDo() WILL CREATE NEW TODOS -->
@@ -64,3 +80,18 @@
 
 </body>
 </html>
+
+<!-- TODO LIST -->
+
+<!-- <div id="todo-list" class="row">
+    <div class="col-sm-4 col-sm-offset-4"> -->
+
+        <!-- LOOP OVER THE TODOS IN $scope.todos -->
+        <!-- <div class="checkbox" ng-repeat="todo in todos">
+            <label>
+                <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
+            </label>
+        </div>
+
+    </div>
+</div> -->
