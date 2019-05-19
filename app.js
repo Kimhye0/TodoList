@@ -10,7 +10,7 @@ var methodOverride = require('method-override');
 var app = express();
 var port = process.env.PORT || 8080;
 
-var dbUrl = 'mongodb://localhost:27017/myDB';
+var dbUrl = 'mongodb://hyewon:loomis9884!@ds145916.mlab.com:45916/heroku_ln1r1d3t';
 mongoose.connect(dbUrl);
 
 app.use(morgan('dev'));
