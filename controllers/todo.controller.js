@@ -30,6 +30,8 @@ exports.updateTodo = function(req,res){
         
         if(req.body.title) todos.title = req.body.title;
         if(req.body.text) todos.text = req.body.text;
+        if(req.body.deadline) todos.deadline = req.body.deadline;
+        if(req.body.priority) todos.priority = req.body.priority;
 
         todos.save(function(err){
             if(err) res.send(err);

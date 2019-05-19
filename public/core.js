@@ -1,9 +1,9 @@
-var todo = angular.module('todo', []);
+var todo = angular.module('todo', ['ui.bootstrap']);
 
-function mainController($scope, $http) {
+function mainController($scope, $http, $filter) {
     $scope.formData = {};
-
-    // when landing on the page, get all todos and show them
+    
+    // 모든 목록 보여줌
     $http.get('/todos')
         .success(function(data) {
             $scope.todos = data;
@@ -13,11 +13,11 @@ function mainController($scope, $http) {
             console.log('Error: ' + data);
         });
 
-    // when submitting the add form, send the text to the node API
+    // Todo list 생성
     $scope.createTodo = function() {
         $http.post('/todos', $scope.formData)
             .success(function(data) {
-                $scope.formData = {}; // clear the form so our user is ready to enter another
+                $scope.formData = {};
                 $scope.todos = data;
                 console.log(data);
             })
@@ -42,7 +42,7 @@ function mainController($scope, $http) {
             });
     };
 
-    // delete a todo after checking it
+    // Todo item 삭제
     $scope.deleteTodo = function(id,index) {
         $http.delete('/todos/' + id)
             .success(function(data) {
@@ -55,4 +55,26 @@ function mainController($scope, $http) {
         
     };
 
+    //마감기한 설정
+    $scope.setDeadline = function(id,dt){
+        $http.put('/todos/' + id, dt)
+        .success(function (data) {
+            console.log(data);
+        })
+        .error(function (data) {
+            console.log('Error: ' + data);
+        });
+    };
+
+    //우선순위 설정
+    $scope.setPriority = function(id,priority){
+        console.log(priority);
+        $http.put('/todos/' + id, priority)
+        .success(function (data) {
+            console.log(data);
+        })
+        .error(function (data) {
+            console.log('Error: ' + data);
+        });
+    }
 }
