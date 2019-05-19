@@ -13,6 +13,7 @@
         html                    { overflow-y:scroll; }
         body                    { padding-top:50px; }
         #todo-list              { margin-bottom:30px; }
+        .done                   { text-decoration: line-through; }
     </style>
 
     <!-- SPELLS -->
@@ -37,22 +38,34 @@
                     <th>내용</th>
                     <th>우선순위</th>
                     <th>마감기한</th>
-                    <th>상태</th>
-                    <th>
-                        <!-- Empty for delete button -->
-                    </th>
+                    <th>완료</th>
+                    <th><!-- Empty for delete button --></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="todo in todos">
-                    <td>{{ todo.title }}</td>
-                    <td>{{ todo.text }}</td>
+                    <td ng-class="{done:completed}" ng-dblclick="editTodo(todo)">
+                        <span ng-hide="todo.editing">{{ todo.title }}</span>
+                        <form ng-submit="doneEditing(todo._id,todo)" ng-show="todo.editing">
+                            <input ng-model="todo.title">
+                        </form>
+                    </td>
+
+                    <td ng-dblclick="editTodo(todo)">
+                        <span ng-hide="todo.editing">{{ todo.text }}</span>
+                        <form ng-submit="doneEditing(todo._id,todo)" ng-show="todo.editing">
+                            <input ng-model="todo.text">
+                        </form>
+                    </td>
                     <td>{{ todo.priority }}</td>
                     <td>{{ todo.deadline }}</td>
-                    <td>{{ todo.done }}</td>
+                    <td><input type='checkbox' ng-model="completed"></td>
                     <td>
-                        <span class="glyphicon glyphicon-remove" ng-click="deleteTodo(todo._id)"></span>
+                        <div class="buttons">
+                            <button class="btn btn-danger" ng-click="deleteTodo(todo._id,$index)">삭제</button>
+                        </div>
                     </td>
+
                 </tr>
             </tbody>
         </table>

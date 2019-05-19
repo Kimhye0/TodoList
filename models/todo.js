@@ -5,5 +5,6 @@ module.exports = mongoose.model('Todo',{
     text : String,
     priority : Number,
     deadline : Date,
+    editing : Boolean,
     done : false
 });

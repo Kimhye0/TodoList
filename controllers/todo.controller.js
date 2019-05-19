@@ -5,7 +5,7 @@ exports.addTodo = function(req,res){
     Todo.create({
         title : req.body.title,
         text : req.body.text,
-        priority : req.body.priority
+        editing : false
     },function(err,todos){
         if(err) res.send(err);
         
@@ -24,20 +24,28 @@ exports.getTodo = function(req,res){
 };
 
 exports.updateTodo = function(req,res){
-    Todo.update({_id:req.params.todo_id},{$set : req.body}, function(err,output){
+    Todo.findById(req.params.todo_id,function(err,todos){
         if(err) res.send(err);
-        res.json({message:'Update Todo item'});
+        if(!todos) return res.send({error:'There is no todo item'});
+        
+        if(req.body.title) todos.title = req.body.title;
+        if(req.body.text) todos.text = req.body.text;
+
+        todos.save(function(err){
+            if(err) res.send(err);
+            res.json(todos);
+        })
     });
 };
 
 exports.deleteTodo = function(req,res){
-    Todo.remove({
+    Todo.deleteOne({
         _id : req.params.todo_id
     }, function(err,todo){
         if(err) res.send(err);
         Todo.find(function(err,todos){
             if(err) res.send(err);
-            res.json(todos);
+            res.json({message : 'Todo item deleted'});
         });
     });
 };

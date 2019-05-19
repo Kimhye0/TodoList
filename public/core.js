@@ -26,16 +26,33 @@ function mainController($scope, $http) {
             });
     };
 
+    $scope.editTodo = function(todo){
+        todo.editing = true;
+    };
+
+    $scope.doneEditing = function (id, todo) {
+        todo.editing = false;
+
+        $http.put('/todos/' + id, todo)
+            .success(function (data) {
+                console.log(data);
+            })
+            .error(function (data) {
+                console.log('Error: ' + data);
+            });
+    };
+
     // delete a todo after checking it
-    $scope.deleteTodo = function(id) {
+    $scope.deleteTodo = function(id,index) {
         $http.delete('/todos/' + id)
             .success(function(data) {
-                $scope.todos = data;
-                console.log(data);
+                console.log($scope.todos);
+                $scope.todos.splice(index, 1);
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
+        
     };
 
 }
