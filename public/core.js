@@ -1,4 +1,4 @@
-var todo = angular.module('todo', ['ui.bootstrap']);
+var todo = angular.module('todo', []);
 
 function mainController($scope, $http, $filter) {
     $scope.formData = {};
