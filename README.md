@@ -6,6 +6,7 @@ git clone https://github.com/Kimhye0/TodoList.git
 
 ## start app
 npm start
+* 로컬환경에서는 localhost:8080 실행됩니다.
 
 ## build
 npm run build
