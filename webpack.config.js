@@ -21,6 +21,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin('bundle.js'),
+        new CleanWebpackPlugin(),
     ]
 };
